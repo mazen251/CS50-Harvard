@@ -1,0 +1,107 @@
+Week-4: Memory
+
+
+computers uses binary, humans uses decimal, computer memory uses hexadecimal
+
+10 digits 0-9 + 6 alphabet A-F 16 total (so hexadecimal is base-16) (FF is the biggest number in hexadecimal = 255 = byte = 8 bits)
+
+ox- is the prefix of a hexadecimal number (here comes a hexadecimal num..)
+
+we want to take a close look in the memory from the inside and know where those variables i declare gets stored, thus, we can use syntax in any program language that gives us access to the location of variables:
+
+
+&: address-of operator: ask the computer at what address is this variable
+
+*: dereference operator: allows you to take an address and go to it (like following a map)
+
+to print an address using prinf use %p
+
+example:
+
+int n = 50;
+printf("%p\n", &n) // ox0931ff35d
+
+
+POINTERS: a pointer is just an address of some variable that you can store it in yet another variable that is called a pointer
+
+to declare a pointer (of course has to be the same data type as the location of the variable it's going to hold)
+
+int n = 50;
+
+int *p = &n; // &n is the location of the n and the * is not the dereference operator, this is just how to declare a pointer....for now...
+
+
+1- int n = 50;
+
+2- int *p = &n; 
+
+3- printf("%p\n", p); // will print the location
+
+4- printf("%i\n", *p); // will print what's in the location (50) note (%i)
+
+
+notes:
+
+unfortunate choice of syntax from the authors of C decade ago, clearly we are using star in two different location (line 2 & 4), 
+
+on line 2 when i specify a data type like int, and then i have a star and then a name of a variable. That is the syntax for declaring a pointer, for declaring a variable that will store address.
+
+on line 4 when we do a start and then the name of a pointer without specifying a type, this just means go there 
+
+
+arrays are continuous in memory (stored back to back to back) so as strings also since we know now that strings are represented as array of characters where each char is stores in adjacent memory locations. 
+
+so in other words strings were kind of a white lies for few weeks now, because strings themselves are technically a pointer. strings are a pointer to the first char in the array (strings is an array of chars :) )
+till the NUL character which is located at the end of each string which now makes sense more :)
+
+in the case of regular arrays. there is no automatic sentinel value like a null character. The length of the array is either determined by the program logic or stored separately, depending on the language being used.
+
+
+string s = "HI!";
+
+print("%p\n", s); // not here that i dont have to write & dereference operator unlike the example above of the integer, cause s itself is a pointer (address of the first char in the string that is an array of chars)
+
+SO IN CONCLUSION STRING S = "HI!"; IS ACTUALLY ALL THAT TIME ISSSSSS:
+
+CHAR *S = "HI!"; (THAT HOW C DIFINED IT EVEN BEFORE THERE WAS SOMETHING CALLED STRING THAT ARE USED IN MORE MODERN LANGAUGES NOW ADAYS)
+
+
+THATS WHY == DOESNT WORK WITH STRINGS and we need strcmp from the string.h library cause if you did 
+
+char *s = get_string("s: ");
+char *t = get_string("t: ");
+
+if(s == t)
+{
+	printf("same\n");
+}
+else
+{
+	printf("diff\n");
+}
+
+// this will compare the first char in the string s with the first char of the string s
+
+
+new library called stdlib.h that contains two important functions 
+
+malloc & free 
+
+
+
+
+
+
+
+
+
+
+
+
+(FROM THIS PART TILL IT ENDS CHECK WEEK NOTES MA BOI IT ISSS CRAZZY)
+
+
+
+
+
+

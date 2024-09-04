@@ -1,0 +1,183 @@
+Week-2: Arrays
+
+compiling itself is not exactly what we've described it to be last week, 
+in the last week we used compiling as like this catch-all phrase that apparently we claimed that it converts from source code to machine code. but if we really want to get pedantic, compiling is just one of four steps that are involved in turning source code that you and i write into those 0's and 1's
+
+steps: 
+
+pre-preprocessing (find and replace, used in the #include takes the functions i need from there and put them as a prototype in my file so that when i use the function from the library, it has an idea about it)
+
+compiling (it actually converts c to assembly language) (a very old language the humans actually wrote, before it we used to write 0's and 1's :) ) (still not machine code though)
+
+assembling (this is what actually converts assembly to machine code 0's and 1's)
+
+linking (when running a code it has your code, the libraries code, and the machine instructions..... and many other things. the linking step is the step that takes all of these separately compiled files in the form of 0's and 1's then in an intelligent way combines them into just one final file named hello or whatever the file is named BIG BIG BIG 0'S AND 1'S)
+
+
+READ MORE ABOUT REVERSE ENGINEERIGN MACHINE CODE TO SOURCE CODE sounds fun
+
+
+Introducing Debugger Tool in the VS code environment 
+
+use debug50 for ease 
+
+in the terminal write debug50 ./filename but before running it make sure to run make command cause the debugger tool won't help you in the syntax and these type of errors, it helps in logical ones
+
+after running it will say that you have to set what's called a breakpoint
+
+
+
+DEBUGGING IS REALLY IMPORTANT (REWATCH)
+
+
+int main(void)
+{
+
+	int score1 = 72;
+	int score1 = 73;
+	int score1 = 74;
+
+	printf("my average is: %f\n", (score1 + score2 + score3) / 3);
+
+}// as you can see i screwed up, since dividing an int with an int will result in an int thus all the floating point numbers will be discarded 
+
+there are three ways to fix either typecast or change the data type of scores to float or the EASIEST TO CHANGE 3 to 3.0 cause as long as there is one float number it will elevate all the equation to floating number
+
+
+ARRAYS
+
+an array is a sequence of values back to back to back in memory. no gaps
+
+int scores[3]; // tells the memory give me an array of size three (three places for three integers back to back)
+
+scores[0] = 72; // means go into this array at location 0 and put this value there
+
+C does not give you the capability to ask an array about its length unlike the other languages. so im gonna have to remember it always better be a CONST
+
+
+
+in C, strings are essentially arrays of characters. thus i can always treat it as an array 
+
+ex: string s = "HI!";
+
+print("%c %c %c\n", s[0], s[1], s[2]); ->HI!
+
+QUESTION: if they are the same. how does a computer knows where the string ends? cause it can be 0, 1 char , 2 char, 3 char or very long number of chars, on the other hand the array size is always known so we know where it ends.
+
+answer: there is actually a special sentinel value at the end of every string in a computer's memory that tell the computer the string ends here. this special value that the world decided on decades ago, is all 0 bits one byte with all zero bits that means string ends here
+
+and in the above case if you went beyond s[2] and tried to print s[3] you'll actually find it there THE 0
+
+
+
+READ THE NOTES ABOUT THE STRINGS FROM THE NOTES PROVIDED BY WEEK2 AND WRITE SOME IN HERE 
+
+meanwhile these are some of my notes:
+
+there is a library called string.h that has many strings manipulation functions that people made before me so i can use them without the need for me to write them, for example and easy function as a one who returns the length of an array could be found there and i can use it better than doing it on my own, this function is called strlen (string length)
+
+ex: int length = strlen(name);
+
+another ex:
+
+string s = get_string("whats your name? ");
+printf("What's up ?")// note that i didn't \n here cause i want whats getting out of the for loop to be printed in the same line
+
+// this loop is for printing a string, lets say i forgot about printf and %s that i can print a string with them and say that the only way to print a string is by iterating over it and printing each char alone.
+
+for (int i = 0; i < strlen(s); i++)
+{
+	print("%c", s[i]);
+}// this is going to work just fine but look at the loop, something is not efficient about it..... it is the fact that strlen is a function implemented in the header file string.h library which we keep calling in each iteration asking again and again and again about the length of s which doesn't change, so for better performance just save the value in a variable before the loop and make the middle condition be i < size (size being the name of the variable holding the strlen of the string)
+
+the first part of a for loop int i = 0 this part is called the initialization part of the loop where you only initialize things once, while the second part i < smth, is called the Boolean expression which gets checked and executed over and over 
+
+so an even better way of writing it can be like:
+
+for (int i = 0, size = strlen(s); i < size; i++)
+
+// this work totally fine (size is also int since i is initialized a int)
+ 
+print("\n")
+
+but if i want to do it on my own. now i know that the end of a string is '\0' (NUL) so i can make a while loop like this 
+
+string name = "mazen";
+int n = 0;
+
+while(name[n] != 'n\')
+{
+	n++;
+}
+
+printf("Your name is: %i\n long", n);
+
+
+
+ctype.h library has toupper() and tolower() functions which make a charcs in a string upper case or lowercase 
+
+string s = get_string("whats your name? ");
+for(int i = 0; n = strlen(s); i++)
+{
+	print("%c", toupper(s[i]));
+}// notice that i haven't change what i said about the Boolean expression, cause the compiler is smart enough to notice something like that and optimize it on his own but, meeh its just a good practice :)
+
+also if you dont want to use toupper make an if to check if its between 'a' and 'z' and if it is subtract s[i] - 32 (32 is the difference in ascii between lower and upper cases)
+
+
+
+command line arguments:
+
+rm for remove, mkdir to make directory. turns out that we too can write code that takes words at the command prompt and uses them as input.
+
+the normal way: 
+
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    string answer = get_string("What's your name? ");
+    printf("hello, %s\n", answer);
+}
+
+
+the command line argument way:
+
+Still, would it not be nice to be able to take arguments before the program even runs? Modify your code as follows:
+
+#include <cs50.h>
+#include <stdio.h>
+
+int main(int argc, string argv[])
+{
+    if (argc == 2)
+    {
+        printf("hello, %s\n", argv[1]);
+    }
+    else
+    {
+        printf("hello, world\n");
+    }
+}
+
+//Notice that this program knows both argc, the number of command line arguments, and argv which is an array of the characters passed as arguments at the command line.
+
+Therefore, using the syntax of this program, executing ./greet David would result in the program saying hello, David.
+
+
+
+
+
+
+Summing Up
+In this lesson, we learned more details about compiling and how data is stored within a computer. Specifically, you learned…
+
+Generally, how a compiler works.
+How to debug your code using four methods.
+How to utilize arrays within your code.
+How arrays store data in back to back portions of memory.
+How strings are simply arrays of characters.
+How to interact with arrays in your code.
+How command-line arguments can be passed to your programs.
+The basic building-blocks of cryptography.

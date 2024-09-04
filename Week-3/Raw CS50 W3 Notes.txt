@@ -1,0 +1,343 @@
+Week-3: Algorithms
+
+
+any divide and conquer where you divide the problem by half each time, there's going to be a logarithm involved there. and this will always be faster and better than doing it n times or even n/2 
+
+
+hashing is a technique in algorithms where you go based on information, jump  index into that location, we'll be talking about in future classes (concept called hash tables)
+
+
+linear search: anytime you each from left to right or from right to left is generally called linear search
+
+For each door from left to right
+    If 50 is behind door
+        Return true
+Return false
+
+For i from 0 to n-1
+    If 50 is behind doors[i]
+        Return true
+Return false
+
+
+binary search: divide and conquer approach, starting in the middle and then deciding either to go right or left. this is called binary search, bi implying two, because you're either going with the left half or the right half again and again (same as the phone book example from W0) (where we teared off the book to half and half and half)
+
+
+
+If no doors left
+    Return false
+If 50 is behind middle door
+    Return true
+Else if 50 < middle door
+    Search left half
+Else if 50 > middle door
+    Search right half
+
+If no doors left
+    Return false
+If 50 is behind doors[middle]
+    Return true
+Else if 50 < doors[middle]
+    Search doors[0] through doors[middle - 1]
+Else if 50 > doors[middle]
+    Search doors[middle + 1] through doors[n - 1]
+
+
+
+
+lets consider a question that we'll be returning back to in future classes: what is the running time of these algorithms? what is the efficiency of these algorithms? how do we actually measure the efficiency of an algorithm?
+
+-is it with a stopwatch or with some other mechanism?
+
+WHEN A COMPUTER SCIENTIST IS ASKED THIS QUESTION, WHEN COMPUTER SCIENTIST TALKS ABOUT THE EFFICIENCY OF AN ALGORITHM
+
+BIG O NOTATION
+
+very often algorithms that you'll write or use will be describable as being on the order of one of these running times:
+
+1- O(n^2) // this means n people doing n things, example: every one stand up and shake every ones hand in the room
+
+2- O(n log n)
+
+3- O(n) // this will take linear time like counting 1,2,3,4,5..... used to represent the worst case like the contact you're trying to find is in the last page of the book (linear search)
+
+4- O(log n) // logarithmic (binary search)
+
+5- O(1) //doesn't exactly means that it finishes in one step it might be 1,2,3, or even 1000 but what it means it's a constant number of steps. if you asked every one in the room to stand up, twice the number of people come into the room. it's not going to take us twice as long to stand up. so it is a constant number
+
+n: being a representative of number of things, number of: people, pages...whatever it is you're doing in code
+
+
+
+
+
+OMEGA 
+
+sometimes we get lucky and find things from the first time, so we don't always want to talk about things in terms of an upper bound (worst case scenario), sometimes it's useful to know in the best case scenario how few steps might an algorithm take. so for that we have omega
+
+Whereas bog O represent the upper bound, omega represents lower bound
+
+same as the 5 big O above but with the omega symbol, but when we use the omega symbol this just means that this algorithm might take as few as this many steps, for instance, in the very best case.
+
+1-omega(n^2)
+
+2-omega(n log n)
+
+3-omega (n)
+
+4-omega (log n)
+
+5-omega (1) (best case in linear search's best case) (binary search's best case)(find it in the first index) (find it in the first dived)
+
+
+now by contrast the normal attendance algorithm 1,2,3,4,5,....... the best case and worst case are the same still n, cause you'll have to always point to each one of the attendee and count them. thus, in this case comes the THETA NOTAION (IN BOTH BEST CASE AND WORST CASE SOME ALGORITHMS STILL TAKES N STEPS NO MATTER WHAT)
+
+whereby if big O and omega happen to be the same, (which is not always the case, but can be) then you can say that the algorithm in in THETA
+
+1-theta(n^2)
+
+2-theta(n log n)
+
+3-theta (n) (counting attendee)
+
+4-theta(log n)
+
+5-theta (1)
+
+
+
+
+
+Linear Search example:
+
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    // An array of integers
+    int numbers[] = {20, 500, 10, 5, 100, 1, 50};
+
+    // Search for number
+    int n = get_int("Number: ");
+    for (int i = 0; i < 7; i++)
+    {
+        if (numbers[i] == n)
+        {
+            printf("Found\n");
+            return 0;
+        }
+    }
+    printf("Not found\n");
+    return 1;
+}
+
+in the for loop, we have an implementation of linear search. return 0 is used to indicate success and exit the program. return 1 is used to exist the program with an error (failure).
+
+We have now implemented linear search ourselves in C!
+
+when you return 0 the code terminates there no other code afterwards it will run
+
+
+What if we wanted to search for a string within an array? Modify your code as follows:
+
+#include <cs50.h>
+#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+    // An array of strings
+    string strings[] = {"battleship", "boot", "cannon", "iron", "thimble", "top hat"};
+
+    // Search for string
+    string s = get_string("String: ");
+    for (int i = 0; i < 6; i++)
+    {
+        if (strcmp(strings[i], s) == 0)
+        {
+            printf("Found\n");
+            return 0;
+        }
+    }
+    printf("Not found\n");
+    return 1;
+}
+
+Notice that we cannot utilize == as in our previous iteration of this program (the previous example was array of integers when dealing with an array of strings things are different)
+
+(In C & C++, the == operator compares the memory addresses of the strings, not their contents. To compare the actual contents of the strings, you should use the strcmp function from the string.h library.)
+
+Instead, we use strcmp, which comes from the string.h library. strcmp will return 0 if the strings are the same. (it will only be == 0 if they are the same else they are not the same words) (something in string.h documentation about this function) the arguments of the function takes two strings() the two you want to compare. ((strcmp(strings[i], s) == 0)
+
+SIDE NOTE: if your using a number in code and you know damn well you want be doing any math operations with it just declare it as a string. makes it easier. cause it may be a very big number thus integer overflow, or even if the number ha symbols like international numbers......
+
+
+
+DATA Structures: a way of preserving data in different ways, the first one we learned so far was the array which is limited in some ways. for example, imagine we want to store contact information which are the names of the people and their phone numbers, if we used arrays we we'll need a people[] array and numbers[] array and we'll need them to be in sync where the first name in the first array has his number corresponding in the numbers array (the first number), and so on..... where the bug margin is bigger since we can miss someone or any stupid mistake happens. thus, we need a more better way of storing these data and what better than choosing a new data structure to store them into. in C luckily it allows as to design our own data structure to hold in it the data that we want in any style we want
+
+take the previous example: contacts application (names, phone numbers)
+
+a suitable data structure for it that we can design in C can look like:
+
+typedef struct // invent the following data type for me
+{
+	string name;
+	string number; // put all the types of variables you want to associate with this new data type
+}  person; // name of your very own data structure
+
+we can make from it an array (think array of arrays)
+
+#include <cs50.h>
+#include <stdio.h>
+#include <string.h>
+
+typedef struct
+{
+    string name;
+    string number;
+}
+person;
+
+int main(void)
+{
+    person people[3]; //  array of this data structure (array of type person) (think of it as if it is a new data type that you invented)
+
+    people[0].name = "Carter"; // this is how initialize the name field
+    people[0].number = "+1-617-495-1000";
+
+    people[1].name = "David";
+    people[1].number = "+1-617-495-1000";
+
+    people[2].name = "John";
+    people[2].number = "+1-949-468-2750";
+
+    // Search for name
+    string name = get_string("Name: ");
+    for (int i = 0; i < 3; i++)
+    {
+        if (strcmp(people[i].name, name) == 0)
+        {
+            printf("Found %s\n", people[i].number);
+            return 0;
+        }
+    }
+    printf("Not found\n");
+    return 1;
+}
+
+
+
+
+
+
+
+SORTING ALGORITHMS
+
+selection sort: selecting the smallest element again and again and again
+
+7 2 5 4 1 6 0 3 
+
+loop on them and keep asking each one is he the smallest? (you won't know what the smallest number is until you go through he whole list at least once)
+
+
+The algorithm for selection sort in pseudocode is:
+
+For i from 0 to n–1 // n-1 cause we started from 0
+    Find smallest number between numbers[i] and numbers[n-1]
+    Swap smallest number with numbers[i] // on the most left location where it doesn't (i for neglecting the ones i already fixed)
+
+this in order of O(n^2)
+
+if you take a good look at the pseudocode you'll see that the selection sort algorithm doesn't even appreciate the best case scenario where the list is already sorted and will keep searching the list in its nested for loops for the smallest value so even the best case scenario will be omega(n^2), so theoretically you can say that this algorithm in in THETA(n^2) 
+
+
+
+
+bubble sort: the bigger number bubbled its way up, all the way to the end of the list. does something again and again just by comparing adjacencies, comparing, comparing , comparing (Bubble sort is another sorting algorithm that works by repeatedly swapping elements to “bubble” larger elements to the end.)
+
+
+The algorithm for bubble sort in pseudocode is:
+
+    For i from 0 to n–2 
+        If numbers[i] and numbers[i+1] out of order
+            Swap them
+    If no swaps
+        Quit
+
+// n-2 cause you wont be comparing the one at the end of the list to what is next to it on its right. THERE IS NOTHING
+
+this in order of O(n^2) too (generally if you think about it, bubble sort is the smae as selection sort in terms of its upper bound) (thats whyw e put the if no swaps, unlike the selection sort where it will have to do all the work even if it sorted in here we can say that if it iterated one time and didn't make any swaps. then the list is laready sorted and we can quit) so in the best case bubble can be omega(n) (not one cause i have to at least iterate over the list and look at each element one time)
+
+
+so How could we improve our efficiency in our sorting?
+
+
+
+
+Recursion: Recursion is a concept within programming where a function calls itself. 
+
+#include <cs50.h>
+#include <stdio.h>
+
+void draw(int n);
+
+int main(void)
+{
+    // Get height of pyramid
+    int height = get_int("Height: ");
+
+    // Draw pyramid
+    draw(height);
+}
+
+void draw(int n)
+{
+    // If nothing to draw
+    if (n <= 0)
+    {
+        return;
+    }
+
+    // Draw pyramid of height n - 1
+    draw(n - 1);
+
+    // Draw one more row of width n
+    for (int i = 0; i < n; i++)
+    {
+        printf("#");
+    }
+    printf("\n");
+}
+
+
+
+
+Merge sort: a sorting algorithm that is better than selection and bubble (better than n^2). We can now leverage recursion in our quest for a more efficient sort algorithm and implement what is called merge sort, a very efficient sort algorithm.
+
+The pseudocode for merge sort is quite short:
+
+If only one number
+    Quit
+Else
+    Sort left half of number
+    Sort right half of number
+    Merge sorted halves
+
+merge is in order of O(n log n) also in omega (n log n) and theta(n log n), that means that sometimes the bubble sort can out preform it in the case that the list is already sorted
+
+
+Summing Up
+In this lesson, you learned about algorithmic thinking and building your own data types. Specifically, you learned…
+
+Algorithms.
+Big O notation.
+Binary search and linear search.
+Various sort algorithms, including bubble sort, selection sort, and merge sort.
+Recursion.
+
+
+
+
+
+ 

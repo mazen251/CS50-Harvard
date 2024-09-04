@@ -1,0 +1,475 @@
+Week-5: Data Structure
+
+
+way of structuring your data, there are different types of data structures.
+
+abstract data types: kinda like a data structure but it offers certain properties certain characteristics. and its up for the programmer how to implement the underlying implementation details
+
+(abstract data structures are flexible and can be implemented in various ways using different programming languages, while concrete data structures like arrays have specific implementations provided by the language itself.)
+
+
+example for them:
+
+tree
+
+list
+
+queues: FIFO 
+
+Stack: LIFO (example gmail)
+
+Queues contrast a stack. 
+
+
+actions associated with them. For example, an item can be enqueued; that is, the item can join the line or queue. Further, an item can be dequeued or leave the queue once it reaches the front of the line. (PUSH, POP).
+
+
+arrays are static we need something dynamic that change its size when we need.
+
+
+lets consider in an example that we want to store three numbers in an integer array, and after declaring that array and filling its values, we wanted to allocate one more space to store another integer so they can be 4. i cant change in the array's size cause it is static.
+
+
+so what David shown us a big code that is very very stupid but it actually gets the job done, just so we can understand
+
+the code first made the array of integers a pointer, that points of the first value of the array and then calculated its memory needs using malloc 3 integers * 4 = 12 bits. now we have a pointer pointing on the old list of 3. then he made a new tmp pointer and made it point on a free chunk of memory that is 16 bits (4 ints = 4 * 4 = 16) and then preformed a copy of the old array to the new array (making sure to free() as we used malloc)
+
+this is very inefficient thus, that's why wee need to design data structures. to be dynamic and fit our needs.
+
+
+using week 4 knowledge now since we have more clear understanding of how memories look like from the inside we can now start using the memory as a canvas to stitch things together in an interesting way.
+
+the only syntax we'll really need to do that to stitch things together in memory and build more interesting structures are:
+
+struct: which allows us to represents structs (persons)
+
+.: dot operator, whenever you have a struct you can go inside of it using the dot operator .name, .address
+
+*: the start can mean different things in different contexts, we use it when declaring a pointer. but we also use it when dereferencing a pointer (to go there (value not location)).
+
+we'll see today that we can combine the . and the star into something that looks like an arrow (->)
+
+
+LINKED LIST
+
+
+linked list contrast the array: cause unlike the array it's not contiguous in the memory
+
+so unlike the last stupid example of copying across different locations in memory. how about if malloc found a space for a number over here, lets just leave it here and if it found space for number two over there let us leave it there. but we do somehow have to find a way to connect these numbers together (a link) 
+
+
+we can certainly use the
+computer's memory as more of a Canvas,
+
+put things wherever we want, wherever
+is available so long as we somehow
+
+connect the dots, so to speak and can
+make our way from one chunk of memory
+
+to the next to the next, thereby
+literally linking them together.
+
+(USING POINTERS) thus, when using malloc to allocate some place in memory for each integer we we'll be cheating and using more space cause technically we need twice the bits for each integer (node: generic term describing a box of memory). there are two values in each node one to store the digit and one for the pointer that point to the next digit in the sequence (data and metadata). the last digit in the sequence its second part of the node (the pointer part) can be stored as NULL (dont point at anything). only one thing remaining to implement a linked list which is one more value a pointer that points to the first node in this linked list  
+
+
+These boxes are called nodes. A node contains both an item and a pointer called next. In code, you can imagine a node as follows:
+
+typedef struct node
+{
+    int number;
+    struct node *next;
+}
+node;
+
+Notice that the item contained within this node is an integer called number. Second, a pointer to a node called next is included, which will point to another node somewhere in memory.
+
+
+the running time of insertion into a linked list is constant time (O(1))
+, because it doesn't matter how big the list is. it prepend prepend prepend. at the beginning of the list, doesn't loop over all of them and pend it in the end. while searching is (O(n)). we can't binary search linked list
+
+
+
+
+LARGE INFO INCOMING:::::
+
+
+we have three options in the linked list these options came from the humans trying to make the time complexity of the code better 
+
+1-prepend (the newer nodes added to the beginning of the list)
+
+// Prepends numbers to a linked list, using while loop to print
+
+#include <cs50.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node
+{
+    int number;
+    struct node *next;
+}
+node;
+
+int main(int argc, char *argv[])
+{
+    // Memory for numbers
+    node *list = NULL;
+
+    // For each command-line argument
+    for (int i = 1; i < argc; i++)
+    {
+        // Convert argument to int
+        int number = atoi(argv[i]);
+
+        // Allocate node for number
+        node *n = malloc(sizeof(node));
+        if (n == NULL)
+        {
+            return 1;
+        }
+        n->number = number;
+        n->next = NULL;
+
+        // Prepend node to list
+        n->next = list;
+        list = n;
+    }
+
+    // Print numbers
+    node *ptr = list;
+    while (ptr != NULL)
+    {
+        printf("%i\n", ptr->number);
+        ptr = ptr->next;
+    }
+
+    // Free memory
+    ptr = list;
+    while (ptr != NULL)
+    {
+        node *next = ptr->next;
+        free(ptr);
+        ptr = next;
+    }
+}
+
+Notes about prepend linked list:
+
+Notice that what the user inputs at the command line is put into the number field of a node called n, and then that node is added to the list. For example, ./list 1 2 will put the number 1 into the number field of a node called n, then put a pointer to list into the next field of the node, and then update list to point to n. That same process is repeated for 2. Next, node *ptr = list creates a temporary variable that points at the same spot that list points to. The while prints what at the node ptr points to, and then updates ptr to point to the next node in the list. Finally, all the memory is freed.
+
+In this example, inserting into the list is always in the order of O(1), as it only takes a very small number of steps to insert at the front of a list.
+
+Considering the amount of time required to search this list, it is in the order of O(n), as in the worst case the entire list must always be searched to find an item. The time complexity for adding a new element to the list will depend on where that element is added. This is illustrated in the examples below.
+
+Linked lists are not stored in a contiguous block of memory. They can grow as large as you wish, provided that enough system resources exist. The downside, however, is that more memory is required to keep track of the list instead of an array. This is because for each element, you must store not just the value of the element, but also a pointer to the next node. Further, linked lists cannot be indexed into like is possible in an array because we need to pass through the first n-1 elements to find the location of the n'th element. Because of this, the list pictured above must be linearly searched. Binary search, therefore, is not possible in a list constructed as above.
+
+
+
+1-append (the newer nodes added to the end of the list)
+
+// appends number to a linked list
+
+// Implements a list of numbers using a linked list
+
+#include <cs50.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node
+{
+    int number;
+    struct node *next;
+}
+node;
+
+int main(int argc, char *argv[])
+{
+    // Memory for numbers
+    node *list = NULL;
+
+    // For each command-line argument
+    for (int i = 1; i < argc; i++)
+    {
+        // Convert argument to int
+        int number = atoi(argv[i]);
+
+        // Allocate node for number
+        node *n = malloc(sizeof(node));
+        if (n == NULL)
+        {
+            return 1;
+        }
+        n->number = number;
+        n->next = NULL;
+
+        // If list is empty
+        if (list == NULL)
+        {
+            // This node is the whole list
+            list = n;
+        }
+
+        // If list has numbers already
+        else
+        {
+            // Iterate over nodes in list
+            for (node *ptr = list; ptr != NULL; ptr = ptr->next)
+            {
+                // If at end of list
+                if (ptr->next == NULL)
+                {
+                    // Append node
+                    ptr->next = n;
+                    break;
+                }
+            }
+        }
+    }
+
+    // Print numbers
+    for (node *ptr = list; ptr != NULL; ptr = ptr->next)
+    {
+        printf("%i\n", ptr->number);
+    }
+
+    // Free memory
+    node *ptr = list;
+    while (ptr != NULL)
+    {
+        node *next = ptr->next;
+        free(ptr);
+        ptr = next;
+    }
+}
+
+notes about appending linked list:
+
+Notice how this code walks down this list to find the end. When appending an element, (adding to the end of the list) our code will run in O(n), as we have to go through our entire list before we can add the final element.
+
+
+
+3- self sorted linked list as we add to it (append) (can also be prepend)
+
+// Implements a sorted list of numbers using a linked list
+
+#include <cs50.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node
+{
+    int number;
+    struct node *next;
+}
+node;
+
+int main(int argc, char *argv[])
+{
+    // Memory for numbers
+    node *list = NULL;
+
+    // For each command-line argument
+    for (int i = 1; i < argc; i++)
+    {
+        // Convert argument to int
+        int number = atoi(argv[i]);
+
+        // Allocate node for number
+        node *n = malloc(sizeof(node));
+        if (n == NULL)
+        {
+            return 1;
+        }
+        n->number = number;
+        n->next = NULL;
+
+        // If list is empty
+        if (list == NULL)
+        {
+            list = n;
+        }
+
+        // If number belongs at beginning of list
+        else if (n->number < list->number)
+        {
+            n->next = list;
+            list = n; 
+        }
+
+        // If number belongs later in list
+        else
+        {
+            // Iterate over nodes in list
+            for (node *ptr = list; ptr != NULL; ptr = ptr->next)
+            {
+                // If at end of list
+                if (ptr->next == NULL)
+                {
+                    // Append node
+                    ptr->next = n;
+                    break;
+                }
+
+                // If in middle of list
+                if (n->number < ptr->next->number)
+                {
+                    n->next = ptr->next;
+                    ptr->next = n;
+                    break;
+                }
+            }
+        }
+    }
+
+    // Print numbers
+    for (node *ptr = list; ptr != NULL; ptr = ptr->next)
+    {
+        printf("%i\n", ptr->number);
+    }
+
+    // Free memory
+    node *ptr = list;
+    while (ptr != NULL)
+    {
+        node *next = ptr->next;
+        free(ptr);
+        ptr = next;
+    }
+}
+
+Notes about sorted linked list:
+
+Notice how this list is sorted as it is built. To insert an element in this specific order, our code will still run in O(n) for each insertion, as in the worst case we will have to look through all current elements.
+
+
+
+revision for the linked list:
+
+Prepend: Adding a new element at the beginning of the linked list. This involves creating a new node and updating the head of the list to point to this new node, with the new node's next pointer set to the previous head.
+
+Append: Adding a new element at the end of the linked list. This involves traversing the list to find the last node and then updating the next pointer of that last node to point to the new node.
+
+Sort: Sorting the elements within the linked list, which typically involves comparing the values within the nodes and rearranging the pointers accordingly. Sorting algorithms like merge sort or insertion sort can be adapted for linked lists. (unless the linked list is sorted we cant search in it using binary search) thus, a new star was born....
+
+
+
+TREES: a way to get the best of both words being dynamic and **sorted**.
+
+Binary search trees are another data structure that can be used to store data more efficiently such that it can be searched and retrieved. (notes that there is (bi) which means that we can divide and conquer) we can start tearing the book apart again)
+
+lets give each node a number and TWO POINTERs (left child & right child)
+
+the leaf nodes have null (their points point to 0)
+
+binary search trees and in sorted order any node everything to the left of it, its left subtree so to speak is smaller. everything to the right of it, its right subtree is larger
+
+(its a recursive data structure)
+
+// Implements a list of numbers as a binary search tree
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// Represents a node
+typedef struct node
+{
+    int number;
+    struct node *left;
+    struct node *right;
+}
+node;
+
+void free_tree(node *root);
+void print_tree(node *root);
+
+int main(void)
+{
+    // Tree of size 0
+    node *tree = NULL;
+
+    // Add number to list
+    node *n = malloc(sizeof(node));
+    if (n == NULL)
+    {
+        return 1;
+    }
+    n->number = 2;
+    n->left = NULL;
+    n->right = NULL;
+    tree = n;
+
+    // Add number to list
+    n = malloc(sizeof(node));
+    if (n == NULL)
+    {
+        free_tree(tree);
+        return 1;
+    }
+    n->number = 1;
+    n->left = NULL;
+    n->right = NULL;
+    tree->left = n;
+
+    // Add number to list
+    n = malloc(sizeof(node));
+    if (n == NULL)
+    {
+        free_tree(tree);
+        return 1;
+    }
+    n->number = 3;
+    n->left = NULL;
+    n->right = NULL;
+    tree->right = n;
+
+    // Print tree
+    print_tree(tree);
+
+    // Free tree
+    free_tree(tree);
+    return 0;
+}
+
+void free_tree(node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    free_tree(root->left);
+    free_tree(root->right);
+    free(root);
+}
+
+void print_tree(node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    print_tree(root->left);
+    printf("%i\n", root->number);
+    print_tree(root->right);
+}
+
+Notice this search function begins by going to the location of tree. Then, it uses recursion to search for number. The free_tree function recursively frees the tree. print_tree recursively prints the tree.
+
+A tree like the above offers dynamism that an array does not offer. It can grow and shrink as we wish.
+Further, this structure offers a search time of O(logn).
+
+
+
+
+
+Dictionaries
+
+Dictionaries are another data structure.
+Dictionaries, like actual book-form dictionaries that have a word and a definition, have a key and a value.
+The holy grail of algorithmic time complexity is O(1) or constant time. That is, the ultimate is for access to be instantaneous.
+ 
+similar to stacks and queues: dictionary is a data structure that can store keys and values
+
+
+think of it as two arrays one holding the key and the other the value and you hope that the indexing is correct [0] is the key for value [0]. but unlike this its DYNAMIC. 
+

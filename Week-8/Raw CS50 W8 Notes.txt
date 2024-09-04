@@ -1,0 +1,292 @@
+Week-8: HTML CSS JS
+
+..........................................................................
+
+HTML & CSS are called markup languages 
+
+JS a programming language that is very commonly used in the context of browsers to make interfaces that are more interactive but it can also be used server side  
+
+..........................................................................
+
+a packet is like an envelope in real life that contain some info and you send into mail (routers are the mail men who delivers it)
+
+..........................................................................
+
+TCP/IP 
+
+two protocols that the internet uses to send a message from A to B
+
+IP - internet protocol (unique address for each and every computer) (not completely true but lets just assume that for now, cause apparently there is a way to share the IP address) (#.#.#.# , each # between 0-255) (4 bytes = 32 bits) (4 billion unique IP address that i can create with those bits) (was enough back then not now) (this was called IPv4) (now we are gradually moving to IPv6, we pumped from 32 bits to 128 bits)
+
+Packets are structured (the bx using the ascii art) (we'll only focus on the source & destination address) (source IP address and destination IP address, so that we can send the envelope from destination A to B) these steps aren't quit enough to send it, sometimes problems might happen in the routers and the envelope gets lost or not delivered. Thus, 
+
+TCP protocol is there to help us in a quadrated delivery, it does that by writing on the outside of the envelope not just the IP addresses of both the source & destination but also a sequence number. 1/2 - 2/2
+
+also, TCP gives us ports numbers which can (identify the type of the message - mail / direct / sound / media) writes ports on the envelope outside. (80 HTTP / 443 HTTPS) most used ports
+
+..........................................................................
+
+DNS another type of server other than the routers (domain name system servers)
+
+its service in life is to answer questions of the form, what is the ip address for this domain name for (https://Harvard.edu.com) the DNS will reply with the IP address (easier than writing it yourself) (it just matches the domain name with the affiliated ip address) (similiar to a dicionary / hash table)
+
+it's a heirarechal design if the DNS server you're on doesnt know the answer for the domain name it will ask somone who is higher than it, agian, and again, recursivley. until the ROOT servers which knows all answers.
+
+..........................................................................
+
+DHCP: Dynamic Host Configuration Protocol.
+
+answers the question: what should be my DNS server and Router?
+
+your pc, phone when you open it, it kind of sends a hello world message for the DHCP to know the answer for this question.
+
+..........................................................................
+
+HTTP: another protocol that governs how web browsers and how web server speak, just like an IP protocol governs how computers address each other on the internet, and how TCP govern how computer keep track of the sequence of packets from point A to B.
+
+Request then receive.
+
+s: is secure that we use now (encryption)
+
+..........................................................................
+
+GET & POST:
+
+Two different ways to request information from a server.
+
+the default the most common is GET, getting information (more secure like sending credit card info)
+
+POST: sending information (when you upload an image to a website)
+
+we'll focus on get
+
+..........................................................................
+
+In the world of HTML there are only two concepts, Tags & Attributes.
+
+
+<!DOCTYPE html> // document type declaration (im using the latest ver)
+
+<!-- Demonstrates HTML -->
+
+<html lang="en">
+    <head>
+        <title>hello, title</title>
+    </head>
+    <body>
+        hello, body
+    </body>
+</html>
+ 
+
+ // <html is the name of the tag hey browser here comes my html (start tag / open tag), anything that comes after the name of the tag is what we'd call an attribute and attributes are going to have values, those values are associated with the attributes with an equal sign and typically a quotation marks 
+
+// </html> hey browser that's it for my html (close tag / end tag)
+
+// anything inside of a start tage and an end tage are called elements like the head and body in the above example
+
+..........................................................................
+
+Important Tags
+
+<p>paragraph tag to put text in them to be separated by a space</p> 
+
+<div>just a general tag to take a rectangular piece of the page</div>
+
+<h1>heading tag for headers 1-6</h1>
+
+<ul>unordered list tag</ul> <li>list item tag to list items inside ul</li>
+
+<ol>ordered list same also in li</ol>
+
+<table></table><tr></tr><td></td> td = table data (aka cell)
+
+<img> image tag is going to have a src attribute which holds the name of the image: src="imagename.png"
+
+some tags has addional attributes that i can include like, for the image here there is an Alt attribute which specifies alternative text (to describe the image) (this is what the human will see of he has a slow internet connection): <image alt="photo of bridge" src ="bridge.png">
+
+<video>video tag, usually comes with a lot of attributes</video> :
+
+<video controls mute> some attributes doesn't have to be assigned by = cause they just make sense don't have to write ="True". anyway controls for pause and play, mute to start the video muted
+
+the video tag ha a child called <source src="video.mp4" type="video/mp4">
+
+<html lang="en">
+    <head>
+        <title>video</title>
+    </head>
+    <body>
+        <video controls muted>
+            <source src="video.mp4" type="video/mp4">
+        </video>
+    </body>
+</html>
+Notice that the type attribute designates that this is a video of type mp4. Further, notice how controls and muted are passed to video.
+
+
+..........................................................................
+
+Linking
+
+How to link web pages (html file to html file)
+
+achor tag (a for short) + hyper reference attribute of which the url that i want to send the user to (href for short) (in between the close tag and the end tag i will put the text that you want the human to see)
+
+  <body>
+       Visit <a href="https://www.harvard.edu">Harvard</a>.
+    </body>
+
+..........................................................................
+
+meta line just copy it is used for meta data and to keep the website user friendly for mobile devices
+
+also can put some media to be previewed for when someone takes the link and send it to others (thumbnail)
+
+..........................................................................
+
+
+You can also create forms reminiscent of Google’s search:
+
+<!DOCTYPE html>
+
+<!-- Demonstrates form -->
+
+<html lang="en">
+    <head>
+        <title>search</title>
+    </head>
+    <body>
+        <form action="https://www.google.com/search" method="get">
+            <input name="q" type="search">
+            <input type="submit" value="Google Search">
+        </form>
+    </body>
+</html>
+Notice that a form tag opens and provides the attribute of what action it will take. The input field is included, passing the name q and the type as search.
+
+We can make this search better as follows:
+
+<!DOCTYPE html>
+
+<!-- Demonstrates additional form attributes -->
+
+<html lang="en">
+    <head>
+        <title>search</title>
+    </head>
+    <body>
+        <form action="https://www.google.com/search" method="get">
+            <input autocomplete="off" autofocus name="q" placeholder="Query" type="search">
+            <button>Google Search</button>
+        </form>
+    </body>
+</html>
+Notice that autocomplete is turned off. autofocus is enabled.
+
+
+..........................................................................
+
+Regular expressions: regexes
+
+way of using patterns validate input or to extract information from strings
+
+While the browser uses these built-in attributes to check for an email address, we can add a pattern attribute to ensure that only specific data ends up in the email address:
+
+<!DOCTYPE html>
+
+<!-- Demonstrates pattern attribute -->
+
+<html lang="en">
+    <head>
+        <title>register</title>
+    </head>
+    <body>
+        <form>
+            <input autocomplete="off" autofocus name="email" pattern=".+@.+\.edu" placeholder="Email" type="email">
+            <button>Register</button>
+        </form>
+    </body>
+</html>
+Notice that the pattern attribute is handed a regular expression to denote that the email address must include an @ symbol and a .edu.
+
+you can search for more patterns if you need
+
+although validating in the user side is not good and should be done server side as the user might try to manipulate things for his own malicious purposes
+
+..........................................................................
+
+
+CSS: In this world we're going to have key value pairs, but it'll be called properties instead of attributes
+
+some important selectors
+
+type selector
+
+class selector
+
+ID selector
+
+attribute selector
+
+i can include the css file in the html file inside a <style></style? tag which can be included in the <head></head> tag or do it in a separate file and link it <link href="style.css" rel="stylesheet"> also in the head tag
+
+also there is a style tag in some HTML attributes which i can add to modify how the tags look like
+
+<!DOCTYPE html>
+
+<!-- Demonstrates inline CSS with P tags -->
+
+<html lang="en">
+    <head>
+        <title>css</title>
+    </head>
+    <body>
+        <p style="font-size: large; text-align: center;">
+            John Harvard
+        </p>
+        <p style="font-size: medium; text-align: center;">
+            Welcome to my home page!
+        </p>
+        <p style="font-size: small; text-align: center;">
+            Copyright &#169; John Harvard
+        </p>
+    </body>
+</html>
+Notice that some style attributes are provided to the <p> tags. The font-size is set to large, medium, or small. Then text-align is set to center.
+
+While correct, the above is not well-designed. We can remove redundancy by modifying our code as follows:
+
+<!DOCTYPE html>
+
+<!-- Removes outer DIV -->
+
+<html lang="en">
+    <head>
+        <title>css</title>
+    </head>
+    <body style="text-align: center">
+        <div style="font-size: large">
+            John Harvard
+        </div>
+        <div style="font-size: medium">
+            Welcome to my home page!
+        </div>
+        <div style="font-size: small">
+            Copyright &#169; John Harvard
+        </div>
+    </body>
+</html>
+Notice that <div> tags are used to divide up this HTML file into specific regions. text-align: center is invoked on the entire body of the HTML. Because everything inside body is a child of body, the center attribute cascades down to those children.
+
+
+it further can be improved if we made a separate css file.
+
+..........................................................................
+
+JS
+
+
+
+ 
+
+

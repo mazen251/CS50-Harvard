@@ -1,0 +1,35 @@
+Week-0: Scratch
+
+Numbers are represented as number
+
+how to represent letters to a computer by assigning a number to the letter
+for instances and by Mer chance the humans who decided to do this made the capital letter A = 65 in decimal which can be 01000001 in binary (represented in a byte = 8 bits)(byte = 255 max)(255 128 64 32 16 8 4 2 1)
+(should be 256 but we start from 0 so - 1)
+
+this is name ASCII: American standard code for information interchange (only in English other languages has more or less since their alphabets may need less or more than one byte to be represented)
+
+but that is old ASCII is old we now use Unicode: that is one of the reasons we have so many characters to represent in binary nowadays, humans, realized, some time ago, that just using 8 bits to represent letters from the alphabet is not good when we want to represent other non-English languages cause they need a lot something superset of ASCII thus, came the Unicode: which sometimes uses 16 bits sometimes 24 and even sometimes 32 bit per one character (might use up to 32 bits to represent one character) (32 which is roughly 4 billion), which can be quit a lot to be represented in binary or even decimal numbers thus, Hexadecimal is used, since it uses not only the numbers from 0 to 9 but the letters A to F
+
+same as letters the emojis are also represented using a number in the Unicode standard since, you stated earlier that it is so big to represent in binary or even decimal, so we use hexadecimal (each emoji has a unique hexadecimal number that represent it, slight variations are made to this hexadecimal number to represent different versions for example golden hand, white hand, black hand,.....) (in cases of emojis that might contain more than one thing for example man and a woman in love with heart between them. in this case the woman has a hexadecimal value and so does the main and the heart) (there is also something in hexadecimal which is called zero-width joiners or "ZWNJ characters / U+200D" which is a special number that humans reserve to say glue the emoji on the left to the emoji on the right and so forth) and this is how can we represent a lot of emojis nowadays that are a combination of different things (U+ does not represent a  umber but only trying to say here comes a Unicode standard after the U+ "Visual Clue")
+
+
+the colors can be represented using numbers too but using only three colors RGB each color is represented in one byte (3 bytes total = 24 bits) which represent its intensity 0 being fait and 255 being the brightest each pixel has (0-255, 0-255, 0-255) to present a certain color 
+
+but since all the things we see from the screen are interpreted as 0's and 1's how can the pc differentiate? bunch of 0's and 1's in a mail will be interpreted as text while in photoshop will be colors? CONTEXT MATTERS 
+
+its a programmer responsibility to tell the program when to interpret the following sequence of bits as a number, a letter or something else
+
+
+what about representing music or audio? maybe three numbers on representing the note the other the duration and the third might as well be the loudness like hard or soft
+
+what about vids? many images Ex: 30fps
+
+..........................................................................
+
+Programming
+
+It is not just about writing code or implementing algorithms that are correct but, now that are well-designed or efficient. that what makes someone a better engineer than someone else. 
+
+
+
+

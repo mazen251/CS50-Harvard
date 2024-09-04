@@ -1,0 +1,484 @@
+Week-6: Python
+
+To simplify and allow you to write code more easily. speed is going to be a tradeoff. Because C allows you, the programmer, to make decisions about memory management, it may run faster than Python – depending on your code. While C only runs your lines of code, Python runs all the code that comes under the hood with it when you call Python’s built-in functions.
+
+
+import cs50 training wheels for python too!!
+
+unlike the C in Python for efficiency purposes i can choose to import certain functions from certain libraries. i don't have to import the whole library or to include it like in C.
+
+in python you can write the same thing in different ways (syntax difference for stylistic purposes: choose what you want or what your company use)
+
+for instance in C:
+
+string name = get_string("What's Your Name? ");
+
+printf("Hello, %s\n", name);
+
+in Python:
+
+1- 
+
+name  = get_string("What's Your Name? ")
+print("Hello, " + name)
+
+the (+) is joining the two stings together (concatenating)
+
+2-
+
+print("Hello,", name) // as a second argument (it will put the sapce)
+
+3- (MOST COMMON WAY)
+
+print(f"Hello, {name}") // format string (f string)
+
+(NO DATA TYPES IN PYTHON, don't have to specify data type for a variable)
+
+
+input("What's Your Name? ") is the same as get_string from cs50 library
+(TREATS EVERY INPUT AS A STRINGGGGG):
+
+# Addition with int [using input]
+
+# Prompt user for x
+x = input("x: ")            # 1
+
+# Prompt user for y
+y = input("y: ")            # 2
+
+# Perform addition
+print(x + y)               =    12 (treated as a concatenating strings)
+
+
+instead we should write:
+
+# Addition with int [using input]
+
+# Prompt user for x
+x = int(input("x: "))
+
+# Prompt user for y
+y = int(input("y: "))
+
+# Perform addition
+print(x + y)              =   3
+
+
+also can remove it from x and y and write it as print(int(x) + int(y))
+
+int() is a function that takes str as an input and convert it to int
+
+
+
+
+sadly the sugar syntax ++ is related to the C family only :(
+
+no more counter++; -> counter = counter + 1 or counter += 1
+
+
+in C we had 7 common data types: (X means not in python)
+
+bool
+
+char (X)
+
+double (X)
+
+float 
+
+int 
+
+long (X)
+
+string (str instead of string)
+
+
+
+new data types in python:
+
+range
+
+list (like an array but better)
+
+tuple
+
+dict (we get dictionaries, we get hash tables for free. They're built in)
+
+set (collection of values that gets rid of any duplicates for you)
+
+
+..........................................................................
+
+
+cs50 library will give us:
+
+get_float
+
+get_int
+
+get_string
+
+..........................................................................
+
+for any reason you had a function that is named after a specific function in a library you use you can specify that you want to use the library's function not yours by writing the name of the library.name of the function before calling or using it. ex:
+
+import cs50 # (no more specification in this case)
+
+x = cs50.get_int("x: ") // it won't collide with your function that have similar name to it (get_int())
+
+..........................................................................
+
+conditional in python
+
+if x > y:
+	print("X is bigger than Y")
+elif x < y:
+	print("X is bigger than Y")
+else:
+	print("X is equal to Y")
+
+..........................................................................
+
+strings comparisons in C vs Python (is string1 == string 2?)
+
+In C, we faced challenges when we wanted to compare two string values. for equality and it always printed different, different,... no matter what. that's cause in C strings are actually char * (pointer array of characters) which points to a specific place in memory (first character in the array) so when comparing two strings we are actually comparing the two locations in memory (the location of the first char in the first array with the location of the first char in the second array), so it'll always print different when we were trying to compare them using == thus, we had to use (strcmp(string1, string 2) == 0) which will check for the assciibetecale values of each char in the string. in python turns out we don't need to understand this lower level of details so it is actually okay to use == to compare two strings. (in C it'll work on a char cause it not a pointer it is just a data type that holds one single a char) (chas are not available in python one char is a str no need to make a data type for it)
+
+
+
+Further looking at comparisons, consider the following code in C:
+
+// Logical operators
+
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    // Prompt user to agree
+    char c = get_char("Do you agree? ");
+
+    // Check whether agreed
+    if (c == 'Y' || c == 'y')
+    {
+        printf("Agreed.\n");
+    }
+    else if (c == 'N' || c == 'n')
+    {
+        printf("Not agreed.\n");
+    }
+}
+
+
+
+
+The above can be implemented as follows:
+
+# Logical operators
+
+from cs50 import get_string
+
+# Prompt user to agree
+s = get_string("Do you agree? ")
+
+# Check whether agreed
+if s == "Y" or s == "y":
+    print("Agreed.")
+elif s == "N" or s == "n":
+    print("Not agreed.")
+
+
+Notice that the two vertical bars utilized in C is replaced with or. Indeed, people often enjoy Python because it is more readable by humans. Also, notice that char does not exist in Python. Instead, strs are utilized.
+
+
+
+Another approach to this same code could be as follows using lists:
+
+# Logical operators, using lists
+
+from cs50 import get_string
+
+# Prompt user to agree
+s = get_string("Do you agree? ")
+
+# Check whether agreed
+if s in ["y", "yes"]:
+    print("Agreed.")
+elif s in ["n", "no"]:
+    print("Not agreed.")
+
+Notice how we are able to express multiple keywords like y and yes in a LIST.
+
+..........................................................................
+
+When a function belongs to a specific object, it is known as a method.
+
+(methods are functions built inside objects) (OOP) (each object has its own characteristic and its functions which we call methods which you can access like you always did using the . operator to access what's inside the object)
+
+For example, strs in Python have a built-in methods since they are objects. 
+
+
+Therefore, you could modify your code as follows
+
+
+
+# Logical operators, using lists
+
+from cs50 import get_string
+
+# Prompt user to agree
+s = get_string("Do you agree? ").lower()
+
+# Check whether agreed
+if s in ["y", "yes"]:
+    print("Agreed.")
+elif s in ["n", "no"]:
+    print("Not agreed.")
+
+Notice how the old value of s is overwritten with the result of s.lower(), a built-in method of strs.
+
+..........................................................................
+
+Loops
+
+1- while
+
+i = 0
+while i < 3:   (if we want a forever loop True (T must be CAPITAL))
+    print("meow")
+    i += 1
+
+2- for
+
+for i in range(3):    # instead of range we can use a str variable
+    print("meow")     # to iterate over a string although i dont need.
+
+Notice that i is never explicitly used. However, Python will increment the value of i. can write _ instead of anything.
+
+
+print(c.upper(), end="") # this means not from a new line, i dont need to iterate through a string char char to make it upper or lower i can make it without iterating the upper() lower() functions will do it for me
+
+s = input("name in lower: ")
+print(f"name in upper {s.upper()}")
+
+
+
+3-NO DO WHILE LOOP IN PYTHON (instead do a forever while loop) (True)
+and once the thing you want is done just break out of it
+
+..........................................................................
+
+Functions
+
+def functionName():
+	saasasdsada
+
+ex:
+
+# Abstraction with parameterization
+
+def main():
+    meow(3)
+
+
+# Meow some number of times
+def meow(n):
+    for i in range(n):
+        print("meow")
+
+
+main()
+
+
+
+..........................................................................
+
+Truncation
+
+Recall that in C, we experienced truncation where one integer being divided by another could result in an inprecise result.
+
+Truncation does not occur in python. too smart for it 
+
+..........................................................................
+
+Floating Point Imprecision
+
+z = x / y
+print(f"{z:.50f}")
+
+..........................................................................
+
+integer overflow
+
+if we count too high we might overflow the capacity of an integer and end up going back to 0 or worst negative.
+
+this doesn't happen in python. the size of the int will keep growing to fit it.
+
+..........................................................................
+
+exceptions 
+
+# Implements get_int with a loop
+
+def get_int(prompt):
+    while True:
+        try:
+            return int(input(prompt))
+        except ValueError:
+            print("Not an integer")
+
+
+def main():
+
+    # Prompt user for x
+    x = get_int("x: ")
+
+    # Prompt user for y
+    y = get_int("y: ")
+
+    # Perform addition
+    print(x + y)
+
+
+main()
+
+
+Notice that the above code repeatedly tries to get the correct type of data, providing additional prompts when needed. i can write pass in the exception and it will silently try again like in cs50 library
+
+..........................................................................
+
+Mario
+
+# Prints a row of 4 question marks without a loop
+
+print("?" * 4) = ????
+
+
+for i in range(3):
+	print("#" * 4)
+
+
+####
+####
+####
+
+..........................................................................
+
+List
+
+lists are a data structure within Python.
+lists have built in methods or functions within them like strs.
+
+WHAT SO GOOD ABOUT LISTS IN PYTHON IS THAT THEIR MEMEORY IS AUTOMATICALLY HANDLED FOR YOU!!!!!
+
+(its like a linked list made for you, that the python handle alone)
+
+you don't have to know about pointers, node, or even implement linked list by your own.
+
+
+method len is a function in the object list which can measure the size of the list
+
+
+ex:
+
+scores = [72, 73, 33]
+
+average = sum(scores) / len(scores)
+
+
+i dont need a for loop to loop on a list just like i dont need one to loop on a str to make it upper. i can iterate through it without the need for a for loop
+
+
+# A list of names
+names = ["Carter", "David", "John"]
+
+# Ask for name
+name = input("Name: ")
+
+# Search for name
+for n in names:
+    if name == n:
+        print("Found")
+        break
+else:
+    print("Not found")
+ 
+
+Notice how this implements linear search for each name.
+
+
+However, we don’t need to iterate through a list. In Python, we can execute linear search as follows:
+
+# Implements linear search for names using `in`
+
+# A list of names
+names = ["Carter", "David", "John"]
+
+# Ask for name
+name = input("Name: ")
+
+# Search for name
+if name in names:
+    print("Found")
+else:
+    print("Not found")
+
+
+IF NAME IN NAMES:
+
+..........................................................................
+
+dict
+
+Recall that a dictionary or dict is a collection of key and value pairs.
+You can implement a dictionary in Python as follows:
+
+# Implements a phone book as a list of dictionaries, without a variable
+
+from cs50 import get_string
+
+people = [
+    {"name": "Carter", "number": "+1-617-495-1000"},
+    {"name": "David", "number": "+1-617-495-1000"},
+    {"name": "John", "number": "+1-949-468-2750"},
+]
+
+# Search for name
+name = get_string("Name: ")
+for person in people:
+    if person["name"] == name:
+        print(f"Found {person['number']}")
+        break
+else:
+    print("Not found")
+
+
+Notice that the dictionary is implemented having both name and number for each entry. (a list of people where each element is a dictionary that hold a key and a value: name and number).
+
+
+Even better, strictly speaking, we don’t need both a name and a number. We can simplify this code as follows:
+
+people = {
+    "Carter": "+1-617-495-1000",
+    "David": "+1-617-495-1000",
+    "John": "+1-949-468-2750",
+}
+
+
+# Search for name
+name = get_string("Name: ")
+if name in people:
+    print(f"Number: {people[name]}")
+else:
+    print("Not found")
+
+
+..........................................................................
+
+
+One of the advantages of Python is its massive user-base and similarly large number of third-party libraries.
+
+
+
+
+
+

@@ -1,0 +1,46 @@
+Week-10: CyberSecurity
+
+..........................................................................
+
+Brute Force Attacks: trying all possible possibilities 
+
+in case of a 4 Digit passcodes: 10k possibilities (each Digit has 100 possibilities 0-9 thus, 10k)
+
+in case of Alphabets (upper & lower = 52): ~7M possibilities (still 4 letters) (52 x 4)
+
+..........................................................................
+
+Password Managers: SW that store passwords for you so you don't have to remember all of them
+
+..........................................................................
+
+Two-Factor Authentication: uses two ways to authenticate that you're the authorized user (phone number, second mail, usb,.....)
+
+..........................................................................
+
+Passwords Stored on Servers: In a Hash Table where the key is the username or email of the user and the value is the password (written encrypted)
+
+..........................................................................
+
+Salting: Mechanism for decreasing the probability that an adversary is going to glean information that we might not want them to have.
+
+Ex: two users use the same password for a website. if an adversary hacked into the DB and found out the password of one he can also know the other guy password as a free info. Salting is used to add a difference between the two users by adding a variable to the encryption that will change the output of the encryption completely.
+
+..........................................................................
+
+Cryptography: Symmetric & Asymmetric (Public & Private Keys)
+
+..........................................................................
+
+Pass Keys: Newish feature of operating systems, that doesn't require you to choose a username and password anymore. Rather, when you visit a website for the very first time, your device will generate a public and private key pair. then the device will send your public key to the website you're registering and keeps the private key for you.
+
+..........................................................................
+
+End-to-End Encryption: not even the service provider can see it (From A to B, C can't know anything)
+
+..........................................................................
+
+Secure Deletion: change all of the deleted data remnant bits to all 0'S or 1'S
+
+
+

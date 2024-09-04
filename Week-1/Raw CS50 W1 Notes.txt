@@ -1,0 +1,189 @@
+Week-1: C
+
+code as we know it is more technically called source code, that what humans actually write. but the computers only speaks binary 1's and 0's which is called machine code. all 0's and 1's no matter if they were number characters commands or instructions to follow they are all represented with 0's and 1's. a bunch of 0's and 1's might just be saying for a computer to print hello world. so writing machine code wont be ideal for us humans that's why source code the one we write is High level languages (programming languages), but we are going to need a program to convert them to the lower level machine code so that we dont see al those 0's and 1's and only the machine has to deal with them. These types of program that takes higher level languages (source code) and converts them to lower level (machine code) ARE CALLED COMPILERS 
+
+to create a file in vs code type in the terminal 
+
+code hello.c (or any language extension)
+
+to compile the file from source code to machine code (i cant run hello.c directly cause it is source code and the machine wont understand it until it is compiled to machine code that is executable by the pc)
+
+make hello (no extension here)
+
+then to run the machine code version made by make hello i should run
+
+./hello (i have to repeat step 2 and 3 every time i make a change in the source code)
+
+
+
+
+C CODE
+
+#include<stdio.h>
+
+int main(void)
+{
+    printf("Hello, World \n"); // printf = f means formatted 
+}
+
+the \n is to start from a new line cause without it the $ sign in the compiler wont be written in a new line, but written directly after the printed word -> Hello, World$
+
+
+in C and many other programming language a lot of functionalities that comes with the languages is tucked away in separate files which i need to include for example the #include<stdio.h> which is like a way from me to tell the compiler that i want to use certain functions, like hey i want to do some standard inputs and outputs. for example the printf() function is living inside this file stdio.h (header file = library = code that some else wrote that i can use, sometimes its closed sourced so you wont be able to see the code but you'll be able to use the 0's and 1's :) ) , #include is a command to the compiler to go on the hard drive and search for this file to include it in my environment to i can use some of its functionalities 
+
+
+
+cs50 also provide us with their own C library wich is made specifcally to make out lives easy in the first couple of weeks to releaf some of that overhead and overwealming sensation when learning a new programming language especially c where it realtavily old language so we have to do some of the heavy lefting (for example C is makes it very hard to take an input from the user so the cs50 library helped us with some functions that we can use just by including the header file or the library and use them directly in our source code) (you can check some of the functions they made in the library from visting the https://manual.cs50.io/ website along with some other frequently used libraries in C)
+
+
+string answer = get_string("What's your name? "); //function from the cs50 library that we will be using now to receive a string from the user until we get good in the next couple of weeks then we can take off the practicing wheels and start using the functions provided by C itself. this function get_string("") is an output and input at the same time
+
+
+printf("Hello, %s\n", answer);
+
+type any English words you wont then you're going to need a %s (% a placeholder)(s being a string) that your going to be needing if you want a string of text to be added to your own text
+
+then we are going to write the variable that i want to substitute for that %s which is my string answer
+
+the first comma is an normal English comma. the second one is for is for c syntax which is written to differentiate between the first argument that the function takes and the second argument which is the variable name 
+
+
+
+While Loops
+
+int i = 3;
+
+while (i > 0)
+{
+	printf("Meow!!\n");
+	i--;
+	
+} // this will print meow 3 times, you can also start from 0 to 3 and ++
+can remove the condition to write true and it will go for ever
+
+
+For Loops
+
+for (int i = 0; i < 3; i++)
+{
+
+	printf("meow\n");
+}// i can remove the condition (i < 3) and leave this place empty, so the loop goes for ever
+
+
+
+fucntions: (as always the most important thing to know about any function are the three horsemen 1- name of the function, return value, and arguments if any)
+
+to create a function: void then the name of the function then (void)
+
+what the first void technically means is that this function has no return value (doesn't hand you anything back like get_string or get_int)
+
+and the void in parentheses means it takes no inputs
+
+
+ex: void meow(void)
+{
+
+}
+
+
+Example for Add function
+
+
+#include<stdio.h>
+#include<cs50.h>
+
+int add(int a, int b); //The declaration of the function above main is called a function prototype. It informs the compiler about the function's name, return type, and parameters before its actual definition. (its a good practice to always keep the main above)
+
+int main(void)
+{
+    int x = get_int("inter x: ");
+    int y = get_int("inter y: ");
+
+    printf("%i\n", add(x, y));
+
+}
+
+int add(int a, int b) // don't name them the same as declared in main. it just confuses things.
+{
+    return a + b;
+}
+
+
+
+
+the reason why it is int main(void)
+
+main always return a value in secret which is 0 if all is fine and any other integer if there is an error, more on that soon.....
+
+
+
+
+some of the most popular textual commands in Linux that can be used in the terminal:
+
+cd -> change directory 
+
+cp -> copy 
+
+ls -> lists the files in your current folder
+
+mkdir -> make directory
+
+mv -> move aka rename -> mv meow.c woof.c
+
+rm -> remove -> rm hello.c then write y or n
+
+rmdir -> remove directory 
+
+
+
+
+
+const int z = 5; (constant variables that the compiler wont let you change them by mistake)
+
+
+
+do while loops
+
+do
+{
+	operation
+}
+while (condition);
+
+
+
+integer overflow is a a thing in computers, whereby, if you don't have enough memory, if you count high enough the number will wrap around back to 0
+
+at the end of the day each of us has a finite memory size in his computer.
+
+for example if my memory can support to count only through 3 bits which the highest number can be represented in 3 bits is 7 which is 111, if i want to count to 8 i'll need a 4th bit so it can be 1000 but i dont have enough memory so what will happen that it'll bee 1-000 where i dont have this 1 to be viewed to me so all i'll see are the three 0's and that is called integer overflow
+
+
+int = 32 bits
+
+long = 64 bits
+
+float = 32 bits
+
+double = 64 bits (more numbers after the decimal point) (more precise value use double instead of float)
+
+
+Truncation = if you divide int by int you'll get int no matter what it should be mathematically 
+
+solution: Typecasting - > type cast the values of the variables to a floating point then a float divided by a float will give you a float
+
+#include<stdio.h>
+#include<cs50.h>
+
+int main(void)
+{
+    int x = get_int("inter x: ");
+    int y = get_int("inter y: ");
+
+    float z = (float) x / (float) y;
+
+    printf("%f\n", z);
+
+} // i could change the x and y to floats without the need to typecast, it all depends on what you want and what is suitable and convenient for the code 
+

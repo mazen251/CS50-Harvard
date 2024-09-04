@@ -1,0 +1,89 @@
+Week 9: Flask
+
+A micro-Framework  that makes it easier to implement web applications using python
+
+
+Flask Framework
+Flask: A micro web framework for Python that allows you to build web applications quickly (small and easy compared to other frameworks)
+
+Setup: Install Flask using pip install Flask
+
+Basic Structure: Create a hello.py file to start a simple Flask app
+
+..........................................................................
+
+Routing
+
+Routes: Define URLs that map to functions
+
+
+@app.route('/')  
+def index():  
+    return 'Hello, World!'  
+
+
+Dynamic URLs: Use <variable> syntax to capture values from the URL.
+
+@app.route('/user/<username>')  
+def profile(username):  
+    return f'User: {username}'  
+..........................................................................
+
+Templates
+
+Jinja2: Templating engine used by Flask to render HTML with dynamic content
+
+Templates Folder: Store HTML files in the templates directory
+
+Rendering: Use render_template to render a template with variables
+
+ex:
+
+from flask import render_template  
+
+@app.route('/greet/<name>')  
+def greet(name):  
+    return render_template('greet.html', name=name)  
+..........................................................................
+
+Forms
+
+Form Handling: Use request object to access form data
+
+ex: 
+
+from flask import request  
+
+@app.route('/submit', methods=['POST'])  
+def submit():  
+    name = request.form['name']  
+    return f'Hello, {name}!'  
+..........................................................................
+
+Databases
+
+SQL just like week 7
+ 
+..........................................................................
+
+Authentication
+
+Sessions: Use Flask's session management to handle user logins and keep track of user sessions (not always good)
+
+ex:
+
+from flask import session  
+
+@app.route('/login', methods=['POST'])  
+def login():  
+    session['user_id'] = user_id  
+    return redirect('/')  
+
+..........................................................................
+
+Deployment
+
+multiple options (Heruko, AWS, Azure,.........)
+
+
+
