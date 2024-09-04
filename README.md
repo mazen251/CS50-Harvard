@@ -14,16 +14,19 @@ The repository is organized by weeks, with each week represented by its own fold
 /week-0/
     /pset_name/
     /pset_name/
+    /Raw_Notes/
     ....
     README.md
 /week-1/
     /pset_name/
     /pset_name/
+    /Raw_Notes/
     ....
     README.md
 /week-2/
     /pset_name/
     /pset_name/
+    /Raw_Notes/
     ....
     README.md
 ...
