@@ -64,8 +64,8 @@ The repository is organized by weeks, with each week represented by its own fold
 - **Week 9: Flask**
   - Building web applications using Flask, a Python web framework.
 
-- **Week 10: Final Project**
-  - The culmination of everything learned in the course, with a final project of my choice.
+- **Week 10: Cyber Security**
+  - Learning the basics of cyber security and how to be safe on the internet.
 
 ## How to Navigate
 
