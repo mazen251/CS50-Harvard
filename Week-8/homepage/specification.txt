@@ -1,0 +1,24 @@
+HTML Tags Used:
+1. <header>
+2. <nav>
+3. <ul>
+4. <li>
+5. <a>
+6. <main>
+7. <section>
+8. <footer>
+9. <h1>
+10. <p>
+
+CSS Properties Used:
+1. font-family
+2. background-color
+3. color
+4. margin
+5. padding
+
+JavaScript Description:
+JavaScript is used to add a console log message when the page is fully loaded to confirm the page is ready for interaction.
+
+Bootstrap Features:
+Bootstrap's navbar component is used to create a responsive navigation bar that adjusts for different screen sizes.
