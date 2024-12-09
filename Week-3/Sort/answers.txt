@@ -1,0 +1,13 @@
+sort1 uses: Bubble Sort
+
+How do you know?: Took less time to sort pre-sorted values
+
+sort2 uses: Merge Sort
+
+How do you know?: Fastest when it comes to sorting unsorted values
+
+sort3 uses: Selection Sort
+
+How do you know?: Took more time to sort pre-sorted values
+
+
